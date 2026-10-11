@@ -29,7 +29,7 @@ cd amendmentradar
 make setup     # creates .venv and installs requirements (needs internet once, for pip)
 make run       # opens the app; uses only committed files in data/, models/ (works offline)
 ```
-Python 3.12 recommended (3.11+ should work). Other targets:
+Tested on Python 3.12 (3.14 also installs). Other targets:
 
 | Target | What it does |
 |---|---|
