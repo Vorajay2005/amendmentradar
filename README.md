@@ -26,23 +26,38 @@ TrialRadar shows:
 ```bash
 git clone https://github.com/Vorajay2005/amendmentradar.git
 cd amendmentradar
-make setup     # creates .venv and installs requirements (needs internet once, for pip)
-make run       # serves the app at http://localhost:8501 (open it in your browser); uses only committed files, works offline
+make setup     # creates .venv and installs Python requirements (internet needed once, for pip)
+make run       # serves the web app + API at http://localhost:8000 (open it in your browser)
 ```
-Tested on Python 3.12 (3.14 also installs). Other targets:
+`make run` works **offline** and needs **no Node**: the built React app (`web/dist`) is committed, and the API only reads committed files (`data/`, `models/`, `BENCHMARK.md`).
+Tested on Python 3.12 (3.14 also installs).
 
 | Target | What it does |
 |---|---|
-| `make test` | pytest: label logic, feature extraction, leakage guard, retrieval, app pages |
+| `make run` | FastAPI + built React app on http://localhost:8000 |
+| `make dev` | hot reload: API with `--reload` plus the Vite dev server on http://localhost:5173 (needs Node >= 20, see `web/.nvmrc`) |
+| `make web` | rebuild `web/dist` after editing `web/src` (needs Node >= 20); commit the result |
+| `make test` | pytest: labels, features, leakage guard, retrieval, API, Streamlit pages |
 | `make benchmark` | retrain, evaluate, rewrite `BENCHMARK.md`, `models/`, `data/tfidf_index.joblib` (~3 min) |
-| `make data` | re-download the population from the ClinicalTrials.gov API v2 into `data/raw/` (gitignored, ~180 MB, cached and resumable) and rebuild `data/processed/` |
+| `make data` | re-download the population from ClinicalTrials.gov API v2 into `data/raw/` (gitignored, ~180 MB, cached, resumable) and rebuild `data/processed/` |
+| `make run-streamlit` | the original Streamlit UI |
 
-Only the NCT-ID lookup needs the internet (it fetches the current record from API v2); if offline and the trial is
-in the stored data, the app falls back to the stored snapshot.
+Only the NCT-ID lookup uses the internet (current record from API v2). If it fails, the API falls back to the stored snapshot (trials in the data, plus a bundled copy of the not-yet-recruiting demo trial in `data/examples/`) and the UI says so.
+
+**Why `web/dist` is committed:** a judge or reviewer can run the project from a fresh clone with no network and no Node toolchain, which matters more here than a small build artifact (about 1 MB). `make web` regenerates it.
+
+## Architecture
+```
+web/ (React + Vite + TypeScript + Tailwind, Framer Motion, Recharts)  --HTTP-->  api/main.py (FastAPI)
+                                                                                    |
+                                                                       src/service.py (thin orchestration)
+                                                          retrieval.py · scoring.py · modeling.py · BENCHMARK.md parser
+```
+Endpoints: `POST /api/analyze` (NCT ID or manual design), `GET /api/dashboard`, `GET /api/reliability` (parsed from `BENCHMARK.md`, so the UI always shows the benchmark's own numbers), `GET /api/examples`. The API reuses the existing query, model and benchmark code; nothing is re-implemented.
 
 ## Data
 - **Source:** [ClinicalTrials.gov](https://clinicaltrials.gov), U.S. National Library of Medicine, public API v2 (no key; only `/api/v2/studies` is used; polite 0.6 s spacing, retries, descriptive User-Agent).
-- **Population (entire, no sampling):** interventional, Phase 2 / 2-3 / 3, Drug or Biological, start date 2008-2019, status COMPLETED (34,295) or TERMINATED (7,085): **41,380 trials**.
+- **Population (entire, no sampling):** interventional, Phase 2, Phase 2/3 and Phase 3 (the API's Phase 2 filter also admits **Phase 1/2** trials: 4,848, or 11.7%), Drug or Biological, start date 2008-2019, status COMPLETED (34,295) or TERMINATED (7,085): **41,380 trials**.
 - **Excluded** (same filters): UNKNOWN 6,774; WITHDRAWN 2,204; ACTIVE_NOT_RECRUITING 1,669; RECRUITING 567; SUSPENDED 139; ENROLLING_BY_INVITATION 25; NOT_YET_RECRUITING 11. This is a **selection effect**: true non-completion across the registry is probably higher than the 17.1% observed.
 - **Committed:** `data/processed/trials.csv.gz` (features, labels, why-stopped text for terminated trials, text for retrieval).
 
@@ -84,9 +99,11 @@ What the numbers mean:
 6. **Associations, not causes;** design checks and drivers do not imply that changing a value will change an outcome.
 7. **Temporal drift** (above); models trained on 2008-2016 starts.
 8. Not an approval or go/no-go tool.
+9. **Near-duplicate neighbours.** About 10% of trials have a near-duplicate neighbour (similarity >= 0.95), such as a sister or extension study, which can influence the 'X of 25' share for those trials.
+10. **Scope.** The data set includes 4,848 Phase 1/2 trials (11.7%): the API's Phase 2 filter admits them.
 
 ## Repository layout
-`src/` (client, labels, features, modeling, retrieval, scoring) · `scripts/` (dataset build, benchmark) · `app/` (Streamlit: Home, Dashboard, About & Limits) · `data/processed/` · `models/` · `docs/` (labels, demo script) · `tests/`.
+`src/` (client, labels, features, modeling, retrieval, scoring, service) · `api/` (FastAPI) · `web/` (React UI; `web/dist` is the committed build) · `scripts/` (dataset build, benchmark, optional browser smoke test) · `app/` (original Streamlit UI) · `data/processed/` · `models/` · `docs/` (labels, demo script) · `tests/`.
 
 ## Sources and license
 - ClinicalTrials.gov, U.S. National Library of Medicine. https://clinicaltrials.gov

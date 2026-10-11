@@ -22,7 +22,7 @@ ADVANCED = (
 )
 
 
-def get_json(url, params=None, tries=5, use_cache=True):
+def get_json(url, params=None, tries=5, use_cache=True, timeout=60, backoff=1.0):
     key = hashlib.md5((url + json.dumps(params or {}, sort_keys=True)).encode()).hexdigest()
     RAW.mkdir(parents=True, exist_ok=True)
     f = RAW / f"{key}.json"
@@ -34,7 +34,7 @@ def get_json(url, params=None, tries=5, use_cache=True):
             time.sleep(wait)
         _last[0] = time.time()
         try:
-            r = requests.get(url, params=params, headers={"User-Agent": UA}, timeout=60)
+            r = requests.get(url, params=params, headers={"User-Agent": UA}, timeout=timeout)
             if r.status_code == 200:
                 if use_cache:
                     f.write_text(r.text)
@@ -44,7 +44,7 @@ def get_json(url, params=None, tries=5, use_cache=True):
         except requests.RequestException:
             if i == tries - 1:
                 raise
-        time.sleep(2 ** i)
+        time.sleep(backoff * 2 ** i)
     raise RuntimeError(f"failed after retries: {url}")
 
 
