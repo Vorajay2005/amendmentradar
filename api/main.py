@@ -1,5 +1,7 @@
 """TrialRadar HTTP API (FastAPI). Thin layer over src/service.py; also serves the built React app."""
+import os
 import sys
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal, Optional
 
@@ -11,10 +13,23 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, model_validator
 
+import scoring
 import service
 
 DIST = ROOT / "web" / "dist"
-app = FastAPI(title="TrialRadar API", version="1.0",
+
+
+@asynccontextmanager
+async def lifespan(_app):
+    """Load models, TF-IDF index and cached tables once at startup, so no request pays for it."""
+    service._data()
+    scoring.models()
+    service.reliability()
+    service.dashboard()
+    yield
+
+
+app = FastAPI(title="TrialRadar API", version="1.0", lifespan=lifespan,
               description="Risk estimates that assist trial designers. Not an approval tool.")
 
 
@@ -58,6 +73,7 @@ class AnalyzeRequest(BaseModel):
         return self
 
 
+@app.get("/health")
 @app.get("/api/health")
 def health():
     return {"ok": True}
@@ -112,3 +128,8 @@ def spa(path: str):
     if index.exists():
         return FileResponse(index)
     return JSONResponse({"message": "The web build is missing. Run `make web` (needs Node) or `git checkout web/dist`."}, status_code=503)
+
+
+if __name__ == "__main__":  # one command, no Node: `python -m api.main` (PORT from the environment, default 8000)
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "8000")))

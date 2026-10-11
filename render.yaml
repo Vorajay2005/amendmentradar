@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: trialradar
+    runtime: python
+    plan: free
+    branch: deploy
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m api.main
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.9

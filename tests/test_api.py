@@ -78,3 +78,26 @@ def test_examples_and_spa_fallback():
     ex = c.get("/api/examples").json(); assert [e["kind"] for e in ex] == ["hit", "miss", "new"]
     assert c.get("/api/nope").status_code == 404
     assert c.get("/analyze").status_code in (200, 503)
+
+
+def test_health_and_deep_links_serve_the_app():
+    assert c.get("/health").json() == {"ok": True}
+    assert c.get("/api/health").json() == {"ok": True}
+    for route in ("/", "/analyze", "/dashboard", "/about", "/results"):
+        r = c.get(route)
+        assert r.status_code == 200 and "text/html" in r.headers["content-type"], route
+
+
+def test_startup_preloads_models_and_index():
+    import service
+    with TestClient(app):
+        assert service._data.cache_info().currsize == 1
+        assert scoring._M, "models should be loaded by the startup hook"
+
+
+def test_runtime_requirements_are_pinned_and_lean():
+    from pathlib import Path
+    reqs = (Path(__file__).resolve().parent.parent / "requirements.txt").read_text().lower()
+    lines = [l for l in reqs.splitlines() if l.strip() and not l.startswith("#")]
+    assert all("==" in l for l in lines)
+    assert not any(k in "\n".join(lines) for k in ("streamlit", "pytest", "httpx"))

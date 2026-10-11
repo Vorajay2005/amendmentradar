@@ -2,13 +2,16 @@ PY = .venv/bin/python
 
 setup:
 	python3.12 -m venv .venv 2>/dev/null || python3 -m venv .venv
-	.venv/bin/pip install -q -r requirements.txt
+	.venv/bin/pip install -q -r requirements-dev.txt
 
 data:          ## re-download from ClinicalTrials.gov API v2 (cached in data/raw/) and rebuild data/processed/
 	$(PY) scripts/build_dataset.py
 
 benchmark:     ## train, evaluate, write BENCHMARK.md + models/ + data/tfidf_index.joblib
 	$(PY) scripts/benchmark.py
+
+serve:         ## production-style single process: binds 0.0.0.0, port from $$PORT (default 8000)
+	$(PY) -m api.main
 
 run:           ## serve the React app + API at http://localhost:8000 (uses the committed web/dist; no Node needed)
 	@echo "TrialRadar -> http://localhost:8000  (Ctrl+C to stop)"
@@ -28,4 +31,4 @@ run-streamlit: ## the original Streamlit UI
 test:
 	$(PY) -m pytest -q
 
-.PHONY: setup data benchmark run dev web run-streamlit test
+.PHONY: serve setup data benchmark run dev web run-streamlit test

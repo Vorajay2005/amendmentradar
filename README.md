@@ -3,6 +3,8 @@
 **Early-stopping risk for clinical trial designs, learned from 41,380 real ClinicalTrials.gov records.**
 Open source (MIT) · no LLMs · no API keys · runs offline from a clone.
 
+**Live demo:** https://YOUR-SERVICE-NAME.onrender.com  *(placeholder; free tier, so the first load after idle takes ~30-60 s while it wakes up)*
+
 > **Please read.** TrialRadar produces risk *estimates* that **assist trial designers**. It is **not an approval tool**
 > and does not say a design is good or bad. Its data are a **current-record snapshot** (records may have been edited
 > after registration) and its reasons-for-stopping are **keyword-derived labels**, not human review.
@@ -45,6 +47,14 @@ Tested on Python 3.12 (3.14 also installs).
 Only the NCT-ID lookup uses the internet (current record from API v2). If it fails, the API falls back to the stored snapshot (trials in the data, plus a bundled copy of the not-yet-recruiting demo trial in `data/examples/`) and the UI says so.
 
 **Why `web/dist` is committed:** a judge or reviewer can run the project from a fresh clone with no network and no Node toolchain, which matters more here than a small build artifact (about 1 MB). `make web` regenerates it.
+
+## Deploy
+One web service runs everything: FastAPI serves the API under `/api` and the committed React build (`web/dist`) at `/`, with a fallback to `index.html` so deep links such as `/dashboard` survive a refresh. No secrets or API keys are needed.
+
+- **One command, no Node:** `make serve` (or `python -m api.main`). It binds `0.0.0.0` and reads the port from `$PORT` (default 8000).
+- **Render (free tier):** `render.yaml` is included (build `pip install -r requirements.txt`, start `python -m api.main`, health check `/health`, Python pinned to 3.12.9 via `PYTHON_VERSION`). Create a *Blueprint* or a *Web Service* from the `deploy` branch.
+- **Dependencies:** `requirements.txt` is runtime-only and fully pinned (the saved models are scikit-learn pickles, so the version must match). `requirements-dev.txt` adds pytest, httpx and Streamlit for `make setup` / `make test`.
+- **Free-tier behaviour:** models, the TF-IDF index and the cached tables load once at startup (about 240 MB resident after startup, 316 MB peak while loading, measured on macOS; the free tier allows 512 MB). The service sleeps after ~15 min idle. If ClinicalTrials.gov is unreachable, NCT lookups fall back to the stored snapshots and the UI says so.
 
 ## Architecture
 ```
