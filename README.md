@@ -99,6 +99,8 @@ What the numbers mean:
 6. **Associations, not causes;** design checks and drivers do not imply that changing a value will change an outcome.
 7. **Temporal drift** (above); models trained on 2008-2016 starts.
 8. Not an approval or go/no-go tool.
+9. **Near-duplicate neighbours.** About 10% of trials have a near-duplicate neighbour (similarity >= 0.95), such as a sister or extension study, which can influence the 'X of 25' share for those trials.
+10. **Scope.** The data set includes 4,848 Phase 1/2 trials (11.7%): the API's Phase 2 filter admits them.
 
 ## Repository layout
 `src/` (client, labels, features, modeling, retrieval, scoring, service) · `api/` (FastAPI) · `web/` (React UI; `web/dist` is the committed build) · `scripts/` (dataset build, benchmark, optional browser smoke test) · `app/` (original Streamlit UI) · `data/processed/` · `models/` · `docs/` (labels, demo script) · `tests/`.

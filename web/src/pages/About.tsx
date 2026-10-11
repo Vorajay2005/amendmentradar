@@ -20,7 +20,7 @@ export default function About() {
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <h1 className="display text-4xl font-semibold sm:text-5xl">About & limits</h1>
       <div className="mt-6 space-y-4 text-[17px] leading-relaxed">
-        <p><strong>What TrialRadar does.</strong> It learned from every Phase 2 and 3 drug or biological trial (including Phase 1/2 and 2/3 designs) in ClinicalTrials.gov that started in 2008–2019 and ended as completed or terminated. From design fields only (phase, masking, arms and outcomes, eligibility length, sponsor type, therapeutic area…) it estimates how likely a similar design was to stop early, and shows the most similar past trials with the reasons they gave.</p>
+        <p><strong>What TrialRadar does.</strong> It learned from every Phase 2 and 3 drug or biological trial (including Phase 1/2 and 2/3 designs; see Scope below) in ClinicalTrials.gov that started in 2008–2019 and ended as completed or terminated. From design fields only (phase, masking, arms and outcomes, eligibility length, sponsor type, therapeutic area…) it estimates how likely a similar design was to stop early, and shows the most similar past trials with the reasons they gave.</p>
         <p><strong>What it is not.</strong> It does not approve or reject a design, and it never says that changing a value will change an outcome. It describes associations in past records; it does not establish causes.</p>
         <p className="rounded-xl border border-line bg-surface2 px-4 py-3 text-[15px]"><strong>Registry edits are the data, not the truth.</strong> The API returns each trial's <em>current</em> record, so the “registered design” features may include edits made after registration. Public version histories could not be obtained, so we could not check this directly.</p>
       </div>
@@ -44,6 +44,12 @@ export default function About() {
           </Accordion>
           <Accordion title="Features and leakage guard">
             <p>Features are registered-design proxies only: phase, masking, allocation, arms, interventions, outcome counts, eligibility length and counts, ages, sex, conditions, therapeutic area, sponsor class, start year, monitoring committee. Enrollment, locations, status, other dates, reasons for stopping and results are never used as features, and an automated test fails if one reaches the model.</p>
+          </Accordion>
+          <Accordion title="Scope: Phase 1/2 trials are included" defaultOpen>
+            <p>{"The data set includes 4,848 Phase 1/2 trials (11.7%): the API's Phase 2 filter admits them."}</p>
+          </Accordion>
+          <Accordion title="Near-duplicate neighbours" defaultOpen>
+            <p>{"About 10% of trials have a near-duplicate neighbour (similarity >= 0.95), such as a sister or extension study, which can influence the 'X of 25' share for those trials."}</p>
           </Accordion>
           <Accordion title="Selection effect">
             <p>Withdrawn, unknown-status and still-running trials are excluded, so the observed termination rate (17.1%) probably understates true non-completion across the registry.</p>

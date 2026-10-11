@@ -8,7 +8,8 @@ from common import st, pd
 
 common.setup("Dashboard")
 st.title("Dashboard")
-st.caption("Every number here is computed from the full data set: Phase 2, 2/3 and 3 trials with a drug or biological "
+st.caption("Every number here is computed from the full data set: Phase 2, 2/3 and 3 trials (plus 4,848 Phase 1/2 trials, "
+           "11.7%, which the API's Phase 2 filter admits) with a drug or biological "
            "intervention, started 2008-2019, that ended as COMPLETED or TERMINATED. Withdrawn, unknown-status and "
            "still-running trials are not included, so true non-completion is probably higher.")
 df = common.trials()
