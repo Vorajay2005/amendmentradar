@@ -22,11 +22,11 @@ ADVANCED = (
 )
 
 
-def get_json(url, params=None, tries=5):
+def get_json(url, params=None, tries=5, use_cache=True):
     key = hashlib.md5((url + json.dumps(params or {}, sort_keys=True)).encode()).hexdigest()
     RAW.mkdir(parents=True, exist_ok=True)
     f = RAW / f"{key}.json"
-    if f.exists():
+    if use_cache and f.exists():
         return json.loads(f.read_text())
     for i in range(tries):
         wait = MIN_GAP - (time.time() - _last[0])
@@ -36,7 +36,8 @@ def get_json(url, params=None, tries=5):
         try:
             r = requests.get(url, params=params, headers={"User-Agent": UA}, timeout=60)
             if r.status_code == 200:
-                f.write_text(r.text)
+                if use_cache:
+                    f.write_text(r.text)
                 return r.json()
             if r.status_code not in (429, 500, 502, 503, 504):
                 r.raise_for_status()
