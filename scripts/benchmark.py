@@ -120,6 +120,7 @@ for (lab, k), m in models.items():
 train_med = {c: float(tr[c].median()) for c in FEATURES if c not in CAT_FEATURES}
 meta = {"features": FEATURES, "groups": GROUPS, "train_years": TRAIN_YEARS, "test_years": TEST_YEARS,
         "base_rate_train": {l: float(tr[l].mean()) for l in LABELS},
+        "test_rate": {l: float(te[l].mean()) for l in LABELS},
         "base_rate_all": {l: float(df[l].mean()) for l in LABELS},
         "area_rate_all": {l: df.groupby("therapeutic_area")[l].mean().to_dict() for l in LABELS},
         "test_auc": {l: {k: res[l][k]["auc"] for k in NAMES} for l in LABELS},

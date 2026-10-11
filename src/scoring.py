@@ -144,7 +144,8 @@ def score(feats, trials=None):
 
 
 def _fmt(v):
-    if isinstance(v, (float, np.floating)):
+    if isinstance(v, (float, np.floating, int, np.integer)) and not isinstance(v, bool):
+        v = float(v)
         return "n/a" if math.isnan(v) else (f"{v:,.0f}" if abs(v) >= 100 else f"{v:,.1f}".rstrip("0").rstrip("."))
     return str(v)
 
@@ -161,6 +162,8 @@ def drivers(feats, label, typical, n_up=3, n_down=2, min_delta=None):
     min_delta = min_delta if min_delta is not None else base * 0.03
     rows = []
     for f in FEATURES:
+        if f == "start_year":  # clamped/time artifact, not a design property
+            continue
         v, tv = X.at[0, f], typical[f]
         same = (isinstance(v, str) and v == tv) or (not isinstance(v, str) and not pd.isna(v) and abs(float(v) - float(tv)) < 1e-9)
         if same:

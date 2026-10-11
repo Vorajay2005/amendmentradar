@@ -168,5 +168,9 @@
   "int_procedure": 0.0,
   "int_behavioral": 0.0,
   "int_other": 0.0
+ },
+ "test_rate": {
+  "terminated": 0.20365828734927446,
+  "terminated_low_accrual": 0.045064377682403435
  }
 }
