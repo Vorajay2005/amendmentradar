@@ -50,7 +50,7 @@ export function RiskCard({ a }: { a: Analysis }) {
           <dl className="mt-4 grid grid-cols-2 gap-3">
             <div>
               <dt className="text-xs text-muted">Estimated chance
-                <Help label="How good is this number?">Calibration was good on 2017–2019 trials (see “How reliable is this?” below), but this is a base-rate-anchored estimate, not a prediction for this specific trial.</Help>
+                <Help label="What is the estimated chance?">This is the model's score for this trial. The band figure is the average for all trials in the same third, and this trial may sit near its top or bottom.</Help>
               </dt>
               <dd className="display text-2xl font-semibold"><CountUp value={l.probability} /></dd>
             </div>

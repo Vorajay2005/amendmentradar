@@ -31,6 +31,7 @@ function Body({ a }: { a: Analysis }) {
           <p className="flex flex-wrap items-center gap-2 text-sm">
             {a.trial.nct_id ? <a href={a.trial.link!} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-semibold text-accent hover:underline num">{a.trial.nct_id}<ExternalLink size={13} aria-label="opens ClinicalTrials.gov in a new tab" /></a> : <span className="font-semibold text-accent">Manual design</span>}
             {a.trial.status && <span className="chip border-line bg-surface2 text-ink">{statusText(a.trial.status)}</span>}
+            {a.source === "stored_snapshot" && <span className="chip border-mid/50 bg-mid/10 text-ink" title={a.source_note ?? undefined}><Info size={12} aria-hidden />Stored copy: status may be out of date</span>}
             <span className="chip border-line bg-surface2 text-ink">Phase {a.trial.phase}</span>
             <span className="chip border-line bg-surface2 text-ink">{a.trial.therapeutic_area}</span>
           </p>
@@ -39,7 +40,6 @@ function Body({ a }: { a: Analysis }) {
         <Link to="/analyze" className="btn-ghost !min-h-[40px] !py-1.5 text-sm"><Search size={15} aria-hidden /> New analysis</Link>
       </div>
 
-      {a.source_note && <p className="mb-2 flex gap-2 rounded-lg border border-mid/40 bg-mid/10 px-3 py-1.5 text-xs leading-snug"><Info size={14} className="mt-0.5 shrink-0 text-mid" aria-hidden />{a.source_note}</p>}
 
       <div className="grid gap-4 lg:grid-cols-12">
         <div className="lg:col-span-7"><RiskCard a={a} /></div>
@@ -51,6 +51,7 @@ function Body({ a }: { a: Analysis }) {
           <h2 id="near-h" className="text-[15px] font-semibold">Nearest terminated trials and why they stopped</h2>
           <span className="hidden text-xs text-muted sm:inline">reasons as written in the registry, with our classification</span>
         </div>
+        <p className="mb-3 text-[13px] leading-snug text-muted">Similarity is text-based (conditions, interventions, design), not biological mechanism. Scores of 0.4–0.5 mean moderately related, so read these as context, not as matches.</p>
         {!s.found ? <ErrorState kind="empty" title="No similar trials found" message="No past trial shares condition or intervention words with this design, so there is nothing to compare against." />
           : <ul className="grid gap-3 md:grid-cols-3">{top.slice(0, 3).map((t, i) => <SimilarCard key={t.nct_id} t={t} i={i} compact />)}</ul>}
         {s.found && top.length > 3 && (
@@ -58,8 +59,9 @@ function Body({ a }: { a: Analysis }) {
         )}
       </section>
 
-      {a.notes.length > 0 && (
+      {(a.notes.length > 0 || a.source_note) && (
         <ul className="mt-6 space-y-2">
+          {a.source_note && <li className="flex gap-2.5 rounded-xl border border-mid/40 bg-mid/10 px-4 py-2.5 text-[13px]"><Info size={16} className="mt-0.5 shrink-0 text-mid" aria-hidden />{a.source_note}</li>}
           {a.notes.map((n) => <li key={n.kind} className="flex gap-2.5 rounded-xl border border-line bg-surface2 px-4 py-2.5 text-[13px] text-muted"><Info size={16} className="mt-0.5 shrink-0" aria-hidden />{n.text}</li>)}
         </ul>
       )}
