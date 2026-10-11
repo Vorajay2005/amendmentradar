@@ -89,6 +89,7 @@ What the numbers mean:
 - In 2017-2019, trials in the model's upper third had a low-accrual termination rate of **8.4%** versus **1.7%** in the lower third; the upper third held 62% of all low-accrual terminations. It separates groups of trials; it does not identify individual ones.
 - **Drift:** the termination rate was 15-17% for 2008-2016 starts and 18.5-21.7% for 2017-2019, partly COVID-19-related, so the models under-predict termination in the test period.
 - A feature-group ablation found no group whose removal cost more than 0.03 AUC (no leakage flag), which is not proof of no leakage.
+- **Model search (v2 attempt, rejected).** We searched for improvements on a 2015-2016 validation slice (32 attempts, including sponsor identity, text features, eligibility flags, tuning and calibration); none met the pre-set adoption rule, so v1 models are unchanged. See [docs/model_search.md](docs/model_search.md). The 2017-2019 test set was evaluated once, for v1 only. (The v1 benchmark also scored diagnostic feature-group ablations on it; none of those was used to choose or tune anything.)
 
 ## Limitations
 1. **Current-record snapshot.** The API returns the latest version; "registered design" features may include post-registration edits, and public version histories could not be obtained.
