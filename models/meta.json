@@ -1,0 +1,172 @@
+{
+ "features": [
+  "phase",
+  "masking",
+  "allocation",
+  "intervention_model",
+  "sex",
+  "therapeutic_area",
+  "sponsor_class",
+  "n_arms",
+  "n_interventions",
+  "n_primary_outcomes",
+  "n_secondary_outcomes",
+  "elig_chars",
+  "elig_criteria",
+  "elig_inclusion",
+  "elig_exclusion",
+  "min_age_years",
+  "max_age_years",
+  "max_age_missing",
+  "healthy_volunteers",
+  "n_conditions",
+  "start_year",
+  "has_dmc",
+  "fda_regulated_drug",
+  "int_drug",
+  "int_biological",
+  "int_device",
+  "int_procedure",
+  "int_behavioral",
+  "int_other"
+ ],
+ "groups": {
+  "eligibility": [
+   "elig_chars",
+   "elig_criteria",
+   "elig_inclusion",
+   "elig_exclusion",
+   "min_age_years",
+   "max_age_years",
+   "max_age_missing",
+   "healthy_volunteers",
+   "sex"
+  ],
+  "outcomes": [
+   "n_primary_outcomes",
+   "n_secondary_outcomes"
+  ],
+  "sponsor": [
+   "sponsor_class"
+  ],
+  "design": [
+   "phase",
+   "masking",
+   "allocation",
+   "intervention_model",
+   "n_arms",
+   "n_interventions",
+   "has_dmc",
+   "fda_regulated_drug",
+   "int_drug",
+   "int_biological",
+   "int_device",
+   "int_procedure",
+   "int_behavioral",
+   "int_other"
+  ],
+  "area": [
+   "therapeutic_area",
+   "n_conditions"
+  ],
+  "start_year": [
+   "start_year"
+  ]
+ },
+ "train_years": [
+  2008,
+  2016
+ ],
+ "test_years": [
+  2017,
+  2019
+ ],
+ "base_rate_train": {
+  "terminated": 0.16116984237513451,
+  "terminated_low_accrual": 0.04184338798506045
+ },
+ "base_rate_all": {
+  "terminated": 0.17121797970033834,
+  "terminated_low_accrual": 0.04260512324794587
+ },
+ "area_rate_all": {
+  "terminated": {
+   "cardiovascular": 0.1702388242498469,
+   "dermatology_ophthalmology": 0.1111111111111111,
+   "endocrine_metabolic": 0.11138310893512852,
+   "gastro_hepatology": 0.136986301369863,
+   "hematology": 0.16237623762376238,
+   "immunology_rheumatology": 0.15353218210361066,
+   "infectious_disease": 0.10287970274036229,
+   "neurology": 0.18796296296296297,
+   "oncology": 0.252863436123348,
+   "other": 0.14176169878096737,
+   "pain_musculoskeletal_anesthesia": 0.10783487784330244,
+   "psychiatry": 0.14380165289256197,
+   "renal_urology": 0.12941176470588237,
+   "respiratory": 0.10241980866629151,
+   "womens_health_reproductive": 0.11332312404287902
+  },
+  "terminated_low_accrual": {
+   "cardiovascular": 0.03459889773423148,
+   "dermatology_ophthalmology": 0.023504273504273504,
+   "endocrine_metabolic": 0.01795185638514892,
+   "gastro_hepatology": 0.0410958904109589,
+   "hematology": 0.027722772277227723,
+   "immunology_rheumatology": 0.029199372056514912,
+   "infectious_disease": 0.01764979098931723,
+   "neurology": 0.03425925925925926,
+   "oncology": 0.07849419303163796,
+   "other": 0.03244199764058199,
+   "pain_musculoskeletal_anesthesia": 0.02780117944397641,
+   "psychiatry": 0.02809917355371901,
+   "renal_urology": 0.022222222222222223,
+   "respiratory": 0.017445132245357344,
+   "womens_health_reproductive": 0.026033690658499236
+  }
+ },
+ "test_auc": {
+  "terminated": {
+   "lr": 0.6308017043355066,
+   "gb": 0.6462870270507278
+  },
+  "terminated_low_accrual": {
+   "lr": 0.6886775398584617,
+   "gb": 0.7005390492205442
+  }
+ },
+ "risk_band_cutoffs": {
+  "terminated": [
+   0.12708928916302237,
+   0.1925521829209596
+  ],
+  "terminated_low_accrual": [
+   0.01886916348054057,
+   0.045668347816325006
+  ]
+ },
+ "train_median": {
+  "n_arms": 2.0,
+  "n_interventions": 2.0,
+  "n_primary_outcomes": 1.0,
+  "n_secondary_outcomes": 3.0,
+  "elig_chars": 1760.0,
+  "elig_criteria": 17.0,
+  "elig_inclusion": 6.0,
+  "elig_exclusion": 10.0,
+  "min_age_years": 18.0,
+  "max_age_years": 65.0,
+  "max_age_missing": 1.0,
+  "healthy_volunteers": 0.0,
+  "n_conditions": 1.0,
+  "start_year": 2012.0,
+  "has_dmc": 0.0,
+  "fda_regulated_drug": 0.0,
+  "int_drug": 1.0,
+  "int_biological": 0.0,
+  "int_device": 0.0,
+  "int_procedure": 0.0,
+  "int_behavioral": 0.0,
+  "int_other": 0.0
+ }
+}

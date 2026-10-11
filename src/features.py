@@ -160,3 +160,28 @@ def extract_text(study):
         "design_text": " ".join([di.get("allocation", ""), di.get("interventionModel", ""),
                                  (di.get("maskingInfo") or {}).get("masking", "")]).strip(),
     }
+
+
+# Substrings that must never appear in a feature-column name.
+FORBIDDEN_TOKENS = ["enroll", "status", "why", "stop", "terminat", "locations", "n_loc", "countr", "complet",
+                    "result", "update", "reference", "publication", "label"]
+
+# Feature groups used for ablation (every feature belongs to exactly one group).
+GROUPS = {
+    "eligibility": ["elig_chars", "elig_criteria", "elig_inclusion", "elig_exclusion",
+                    "min_age_years", "max_age_years", "max_age_missing", "healthy_volunteers", "sex"],
+    "outcomes": ["n_primary_outcomes", "n_secondary_outcomes"],
+    "sponsor": ["sponsor_class"],
+    "design": ["phase", "masking", "allocation", "intervention_model", "n_arms", "n_interventions",
+               "has_dmc", "fda_regulated_drug", "int_drug", "int_biological", "int_device",
+               "int_procedure", "int_behavioral", "int_other"],
+    "area": ["therapeutic_area", "n_conditions"],
+    "start_year": ["start_year"],
+}
+
+
+def assert_no_leakage(columns):
+    """Raise if any column name looks like a post-registration/outcome field."""
+    bad = [c for c in columns if c in FORBIDDEN or any(t in c.lower() for t in FORBIDDEN_TOKENS)]
+    if bad:
+        raise ValueError(f"leakage guard: forbidden feature columns {bad}")
