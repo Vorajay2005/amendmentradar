@@ -1,7 +1,7 @@
 # Label definitions
 
 Source: ClinicalTrials.gov API v2 (NLM). Population: interventional, Phase 2 /
-Phase 2-3 / Phase 3, Drug or Biological intervention, start date 2008-2019,
+Phase 2-3 / Phase 3 (the API's Phase 2 filter also admits 4,848 Phase 1/2 trials, 11.7% of the data), Drug or Biological intervention, start date 2008-2019,
 overall status COMPLETED or TERMINATED. N = 41,380 (the entire matching set; no
 sampling).
 
