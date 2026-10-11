@@ -44,7 +44,7 @@ export default function Landing() {
             <p className="eyebrow">The evidence base</p>
             {dash.loading ? <div className="mt-4 space-y-3"><Skeleton className="h-10" /><Skeleton className="h-10" /><Skeleton className="h-10" /></div> : dash.data ? (
               <dl className="mt-4 divide-y divide-line">
-                {[["Real trials", num(dash.data.totals.trials), "Phase 2/3, drug or biological, 2008–2019"],
+                {[["Real trials", num(dash.data.totals.trials), "Phase 2/3 (incl. 1/2), drug or biological, 2008–2019"],
                   ["Terminated early", `${dash.data.totals.terminated_pct.toFixed(1)}%`, `${num(dash.data.totals.terminated)} trials`],
                   ["Terminated for low accrual", `${dash.data.totals.low_accrual_pct.toFixed(1)}%`, `${num(dash.data.totals.low_accrual)} trials (keyword-derived)`]].map(([k, v, s]) => (
                   <div key={k} className="flex items-baseline justify-between gap-4 py-3">
