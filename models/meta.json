@@ -85,6 +85,10 @@
   "terminated": 0.16116984237513451,
   "terminated_low_accrual": 0.04184338798506045
  },
+ "test_rate": {
+  "terminated": 0.20365828734927446,
+  "terminated_low_accrual": 0.045064377682403435
+ },
  "base_rate_all": {
   "terminated": 0.17121797970033834,
   "terminated_low_accrual": 0.04260512324794587
@@ -168,9 +172,5 @@
   "int_procedure": 0.0,
   "int_behavioral": 0.0,
   "int_other": 0.0
- },
- "test_rate": {
-  "terminated": 0.20365828734927446,
-  "terminated_low_accrual": 0.045064377682403435
  }
 }

@@ -37,8 +37,8 @@ Rules are applied **in order, most specific first; the first match wins**
 Before rules 1 and 2, negated mentions are stripped up to the end of the clause,
 so "Terminated *not based on safety concerns*, but due to insufficient efficacy"
 is efficacy and "Business Decision; *No Safety or Efficacy Concerns*" is
-sponsor/business. Without this, 350 trials were wrongly labeled safety in our
-first audit.
+sponsor/business. Without this, about 350 trials (half of the safety class) were
+wrongly labeled safety in our first audit.
 
 ### Worked examples
 | why-stopped text | class |
@@ -59,6 +59,18 @@ first audit.
   `other_unspecified` and are never counted as low accrual.
 - `whyStopped` is used ONLY to build labels. It is never a model feature.
 - Records are the CURRENT version; status/reason may reflect later edits.
+
+## Known keyword misfires (found by eyeballing samples; not fixed, by design)
+| NCT | text (shortened) | assigned | why it is arguably wrong |
+|---|---|---|---|
+| NCT01122927 | "...objective of the Pediatric Investigational Plan was met and provided 2 years of safety data" | safety | the trial finished its plan; "safety" is just mentioned |
+| NCT01715883 | "Lack of support staff" | sponsor_business | "lack of support" keyword; this is a staffing problem |
+| NCT03090880 | "The rate of inclusion is too low to hope to reach the target ... The sponsor has decided to prematurely stop" | sponsor_business | rule order: the sponsor rule outranks low accrual, so a true accrual stop is not counted as low accrual |
+| NCT03843125 | "...insufficient evidence to support a positive benefit: risk profile. Safety findings were consistent..." | safety | mixed efficacy/safety text; safety rule fires first |
+| (various) | "Due to lack of patients number", "recruition ..." (typo) | other_unspecified | no recognised recruitment word, and bare "patients" is deliberately not matched |
+
+Direction of the bias: `terminated_low_accrual` is conservative (undercounts), and the
+safety and sponsor classes can be slightly inflated by passing mentions.
 
 ## Selection effect
 Excluded under the same filters (counts from the API at build time, see

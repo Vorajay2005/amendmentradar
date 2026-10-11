@@ -31,6 +31,17 @@ Features come only from registered-design fields; labels come from overall statu
 Headline: on the main label the better model is **Gradient boosting** with test ROC-AUC **0.646 (0.633-0.659)**, which is weak.
 The therapeutic-area baseline gets 0.601 (0.587-0.615). For low accrual, the better model is **Gradient boosting** with 0.701 (0.676-0.724) (modest) on **441 test positives**.
 
+Observed rate by risk band on the test set (bands = thirds of the model's own test-period scores, so they are relative to trials starting 2017-2019):
+
+| label | band (gradient boosting) | trials | observed rate % | share of all positives % |
+|---|---|---|---|---|
+| terminated | Lower third | 3262 | 11.5 | 18.8 |
+| terminated | Middle third | 3262 | 20.0 | 32.7 |
+| terminated | Upper third | 3262 | 29.6 | 48.5 |
+| terminated_low_accrual | Lower third | 3262 | 1.7 | 12.5 |
+| terminated_low_accrual | Middle third | 3262 | 3.5 | 25.6 |
+| terminated_low_accrual | Upper third | 3262 | 8.4 | 61.9 |
+
 ## 2. Temporal drift
 Termination rate by start year (all trials, true rates):
 
