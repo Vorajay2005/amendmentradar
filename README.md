@@ -3,7 +3,7 @@
 **Early-stopping risk for clinical trial designs, learned from 41,380 real ClinicalTrials.gov records.**
 Open source (MIT) · no LLMs · no API keys · runs offline from a clone.
 
-**Live demo:** https://YOUR-SERVICE-NAME.onrender.com  *(placeholder; free tier, so the first load after idle takes ~30-60 s while it wakes up)*
+**Live demo:** https://trialradar-i080.onrender.com  *(free instance: after being idle it sleeps, and the first load can take up to a minute to wake)*
 
 > **Please read.** TrialRadar produces risk *estimates* that **assist trial designers**. It is **not an approval tool**
 > and does not say a design is good or bad. Its data are a **current-record snapshot** (records may have been edited
