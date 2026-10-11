@@ -53,3 +53,33 @@ def fetch_page(status, page_size=1000, page_token=None):
     if page_token:
         p["pageToken"] = page_token
     return get_json(BASE, p)
+
+
+# Only fields needed for allowed features / labels / retrieval. Enrollment,
+# locations, completion dates, results and references are deliberately NOT requested.
+FIELDS = "|".join([
+    "NCTId", "BriefTitle", "OverallStatus", "WhyStopped", "StartDate", "StudyFirstPostDate",
+    "Phase", "DesignAllocation", "DesignInterventionModel", "DesignPrimaryPurpose", "DesignMasking",
+    "ArmGroupLabel", "ArmGroupType", "InterventionType", "InterventionName",
+    "PrimaryOutcomeMeasure", "SecondaryOutcomeMeasure",
+    "EligibilityCriteria", "HealthyVolunteers", "Gender", "MinimumAge", "MaximumAge",
+    "Condition", "Keyword", "LeadSponsorName", "LeadSponsorClass",
+    "OversightHasDMC", "IsFDARegulatedDrug",
+])
+
+
+def fetch_all(page_size=1000, log=print):
+    """Whole matching population (COMPLETED + TERMINATED); resumable via cache."""
+    studies, token, n = [], None, 0
+    while True:
+        p = {"filter.overallStatus": "COMPLETED|TERMINATED", "filter.advanced": ADVANCED,
+             "fields": FIELDS, "pageSize": page_size, "countTotal": "true", "format": "json"}
+        if token:
+            p["pageToken"] = token
+        d = get_json(BASE, p)
+        studies += d["studies"]
+        n += 1
+        log(f"page {n}: {len(studies)}/{d.get('totalCount')}")
+        token = d.get("nextPageToken")
+        if not token:
+            return studies
