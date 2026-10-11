@@ -1,0 +1,33 @@
+feature_set,model,label,val_auc,ci_low,ci_high,delta_vs_v1_best,paired_delta_ci,note,brier,ece
+"v1 (current features, default params)",lr,terminated,0.646,0.6285,0.6631,,,baseline refit on 2008-2014,,
+"v1 (current features, default params)",gb,terminated,0.6667,0.6501,0.6824,,,baseline refit on 2008-2014,,
+"v1 (current features, default params)",lr,terminated_low_accrual,0.7359,0.7053,0.764,,,baseline refit on 2008-2014,,
+"v1 (current features, default params)",gb,terminated_low_accrual,0.7482,0.7176,0.7755,,,baseline refit on 2008-2014,,
+v1 + sponsor identity (OOF target enc.),lr,terminated,0.652,0.6348,0.6695,-0.0147,"(-0.028, -0.001)",,0.13103,0.0239
+v1 + sponsor identity (OOF target enc.),gb,terminated,0.6631,0.6468,0.6796,-0.0036,"(-0.015, +0.008)",,0.12927,0.0163
+v1 + sponsor identity (OOF target enc.),lr,terminated_low_accrual,0.7417,0.7104,0.7721,-0.0065,"(-0.022, +0.011)",,0.03762,0.0067
+v1 + sponsor identity (OOF target enc.),gb,terminated_low_accrual,0.7603,0.7316,0.7859,0.0121,"(-0.001, +0.025)",,0.03743,0.0049
+v1 + TF-IDF/SVD(50) elig+cond+interv,lr,terminated,0.6612,0.6448,0.6794,-0.0055,"(-0.018, +0.008)",,0.12982,0.0159
+v1 + TF-IDF/SVD(50) elig+cond+interv,gb,terminated,0.6702,0.6536,0.6863,0.0035,"(-0.007, +0.016)",,0.12932,0.0104
+v1 + TF-IDF/SVD(50) elig+cond+interv,lr,terminated_low_accrual,0.7393,0.7095,0.7668,-0.0088,"(-0.026, +0.009)",,0.03772,0.007
+v1 + TF-IDF/SVD(50) elig+cond+interv,gb,terminated_low_accrual,0.7556,0.7269,0.7825,0.0074,"(-0.009, +0.022)",,0.03734,0.0039
+v1 + eligibility flags,lr,terminated,0.646,0.6284,0.6631,-0.0207,"(-0.031, -0.009)",,0.13065,0.0116
+v1 + eligibility flags,gb,terminated,0.669,0.6525,0.6853,0.0023,"(-0.002, +0.007)",,0.12905,0.0118
+v1 + eligibility flags,lr,terminated_low_accrual,0.7389,0.708,0.767,-0.0092,"(-0.023, +0.004)",,0.03754,0.0054
+v1 + eligibility flags,gb,terminated_low_accrual,0.7526,0.7224,0.7793,0.0045,"(-0.002, +0.011)",,0.03743,0.0043
+v1 + sponsor + SVD + flags,lr,terminated,0.6651,0.6477,0.6829,-0.0016,"(-0.016, +0.013)",,0.13,0.0236
+v1 + sponsor + SVD + flags,gb,terminated,0.6691,0.6521,0.6857,0.0024,"(-0.012, +0.017)",,0.12906,0.0153
+v1 + sponsor + SVD + flags,lr,terminated_low_accrual,0.7421,0.7126,0.7702,-0.0061,"(-0.025, +0.014)",,0.03774,0.0072
+v1 + sponsor + SVD + flags,gb,terminated_low_accrual,0.7611,0.7315,0.7875,0.0129,"(-0.007, +0.033)",,0.03737,0.0042
+v1 features + tuned GB (train-CV search),gb,terminated,0.6634,0.6463,0.6797,-0.0033,"(-0.009, +0.003)","params={'learning_rate': 0.03, 'max_depth': 6, 'min_samples_leaf': 100, 'l2_regularization': 0.0, 'max_iter': 300}; train-CV AUC 0.6645",0.12908,0.0111
+v1 features + tuned LR (C by train-CV),lr,terminated,0.6471,0.6294,0.664,-0.0196,"(-0.030, -0.009)",C=0.1,0.1306,0.0142
+v1 features + tuned GB (train-CV search),gb,terminated_low_accrual,0.7504,0.7212,0.777,0.0023,"(-0.002, +0.006)","params={'learning_rate': 0.1, 'max_depth': 4, 'min_samples_leaf': 20, 'l2_regularization': 5.0, 'max_iter': 500}; train-CV AUC 0.7405",0.03743,0.0061
+v1 features + tuned LR (C by train-CV),lr,terminated_low_accrual,0.7399,0.7092,0.7673,-0.0083,"(-0.022, +0.005)",C=0.1,0.03755,0.0056
+v1 + sponsor + SVD + flags + tuned GB,gb,terminated,0.67,0.6541,0.6858,0.0033,"(-0.011, +0.018)","params={'learning_rate': 0.05, 'max_depth': 6, 'min_samples_leaf': 100, 'l2_regularization': 1.0, 'max_iter': 500}; train-CV AUC 0.6992",0.12936,0.0212
+  + isotonic calibration (map fit on train OOF),gb,terminated,0.6688,0.6525,0.6847,0.0021,"(-0.012, +0.017)",AUC is rank-based; isotonic can only keep or lose ties,0.12917,0.0152
+v1 + sponsor + SVD + flags + tuned GB,gb,terminated_low_accrual,0.7599,0.7315,0.7876,0.0117,"(-0.007, +0.029)","params={'learning_rate': 0.03, 'max_depth': 3, 'min_samples_leaf': 20, 'l2_regularization': 0.0, 'max_iter': 500}; train-CV AUC 0.7643",0.03739,0.0051
+  + isotonic calibration (map fit on train OOF),gb,terminated_low_accrual,0.7591,0.7301,0.7863,0.0109,"(-0.008, +0.029)",AUC is rank-based; isotonic can only keep or lose ties,0.03739,0.0034
+v1 + isotonic calibration (map fit on train OOF),gb,terminated,0.6669,0.6504,0.6833,0.0002,"(-0.001, +0.001)",calibration only,0.12912,0.0139
+v1 GB uncalibrated (calibration reference),gb,terminated,0.6667,0.6501,0.6824,0.0,"(+0.000, +0.000)",Brier/ECE reference,0.12912,0.0155
+v1 + isotonic calibration (map fit on train OOF),gb,terminated_low_accrual,0.747,0.7159,0.7744,-0.0012,"(-0.003, +0.001)",calibration only,0.03755,0.0074
+v1 GB uncalibrated (calibration reference),gb,terminated_low_accrual,0.7482,0.7176,0.7755,0.0,"(+0.000, +0.000)",Brier/ECE reference,0.03748,0.0055
