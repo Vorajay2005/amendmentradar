@@ -150,12 +150,11 @@ def _fmt(v):
     return str(v)
 
 
-def drivers(feats, label, typical, n_up=3, n_down=2, min_delta=None):
-    """Features that move the estimate away from what a typical (2008-2016) trial would get.
+def _flag_feature(f):
+    return f.startswith("int_") or f in ("healthy_volunteers", "has_dmc", "fda_regulated_drug", "max_age_missing")
 
-    For each feature, swap its value for the typical value and see how the estimate changes.
-    Descriptive attribution only.
-    """
+
+def _driver_rows(feats, label, typical, n_up=3, n_down=2, min_delta=None):
     m = models()[label]
     X = pd.DataFrame([feats])[FEATURES]
     base = float(m.predict_proba(X)[:, 1][0])
@@ -176,14 +175,37 @@ def drivers(feats, label, typical, n_up=3, n_down=2, min_delta=None):
     rows.sort(key=lambda r: -r[0])
     up = [r for r in rows if r[0] > 0][:n_up]
     down = [r for r in sorted(rows, key=lambda r: r[0]) if r[0] < 0][:n_down]
+    return up, down
+
+
+def driver_dict(row):
+    """Structured, display-ready version of one driver row (direction is relative to a typical trial)."""
+    d, f, v, tv = row
+    if _flag_feature(f) and f not in CAT_FEATURES:
+        shown, typ = ("yes" if v else "no"), ("yes" if tv >= 0.5 else "no")
+    else:
+        shown, typ = _fmt(v), _fmt(tv)
+    return {"feature": f, "name": NICE[f], "value": shown, "typical": typ, "direction": "up" if d > 0 else "down"}
+
+
+def drivers(feats, label, typical, n_up=3, n_down=2, min_delta=None):
+    """Features that move the estimate away from what a typical (2008-2016) trial would get.
+
+    For each feature, swap its value for the typical value and see how the estimate changes.
+    Descriptive attribution only. Returns markdown lines (up, down).
+    """
+    up, down = _driver_rows(feats, label, typical, n_up, n_down, min_delta)
 
     def line(r, word):
-        _, f, v, tv = r
-        shown = _fmt(v) if f not in ("healthy_volunteers", "has_dmc", "fda_regulated_drug", "max_age_missing") and not f.startswith("int_") else ("yes" if v else "no")
-        typ = _fmt(tv) if f in CAT_FEATURES or not (f.startswith("int_") or f in ("healthy_volunteers", "has_dmc", "fda_regulated_drug", "max_age_missing")) else ("yes" if tv >= 0.5 else "no")
-        return f"**{NICE[f]}**: {shown} (typical: {typ}) {word}"
+        x = driver_dict(r)
+        return f"**{x['name']}**: {x['value']} (typical: {x['typical']}) {word}"
     return ([line(r, "raises the estimate vs. a typical trial") for r in up],
             [line(r, "lowers the estimate vs. a typical trial") for r in down])
+
+
+def driver_dicts(feats, label, typical, **kw):
+    up, down = _driver_rows(feats, label, typical, **kw)
+    return [driver_dict(r) for r in up], [driver_dict(r) for r in down]
 
 
 def percentile_checks(feats, near):

@@ -1,0 +1,108 @@
+{
+ "protocolSection": {
+  "identificationModule": {
+   "nctId": "NCT06964230",
+   "briefTitle": "A Phase 2b/3 Clinical Study Evaluating T3D-959 in Mild-to-Moderate Alzheimer's Disease Subjects"
+  },
+  "statusModule": {
+   "overallStatus": "NOT_YET_RECRUITING",
+   "startDateStruct": {
+    "date": "2026-10-26"
+   },
+   "studyFirstPostDateStruct": {
+    "date": "2025-05-09"
+   }
+  },
+  "sponsorCollaboratorsModule": {
+   "leadSponsor": {
+    "name": "T3D Therapeutics, Inc.",
+    "class": "INDUSTRY"
+   }
+  },
+  "oversightModule": {
+   "oversightHasDmc": false,
+   "isFdaRegulatedDrug": true
+  },
+  "conditionsModule": {
+   "conditions": [
+    "Alzheimer's Disease"
+   ],
+   "keywords": [
+    "T3D-959",
+    "Mild-to-Moderate Alzheimer&#39;s Disease Severity",
+    "New Drug Treatment Being Tested",
+    "Once-a-day oral drug administration",
+    "Phase 2b/3 Study T3D959-301",
+    "Brain Metabolism"
+   ]
+  },
+  "designModule": {
+   "phases": [
+    "PHASE2",
+    "PHASE3"
+   ],
+   "designInfo": {
+    "allocation": "RANDOMIZED",
+    "interventionModel": "PARALLEL",
+    "primaryPurpose": "TREATMENT",
+    "maskingInfo": {
+     "masking": "QUADRUPLE"
+    }
+   }
+  },
+  "armsInterventionsModule": {
+   "armGroups": [
+    {
+     "label": "Placebo, matching T3D-959 active capsules",
+     "type": "PLACEBO_COMPARATOR"
+    },
+    {
+     "label": "30mg T3D-959",
+     "type": "EXPERIMENTAL"
+    }
+   ],
+   "interventions": [
+    {
+     "type": "DRUG",
+     "name": "T3D-959"
+    },
+    {
+     "type": "OTHER",
+     "name": "Placebo Comparator"
+    }
+   ]
+  },
+  "outcomesModule": {
+   "primaryOutcomes": [
+    {
+     "measure": "Change from baseline to end of treatment in ADAS-Cog13 and ADCS-iADL"
+    }
+   ],
+   "secondaryOutcomes": [
+    {
+     "measure": "Change from Baseline to End of Treatment in plasma AB42/40 ratio, in subjects with a clinical diagnosis of mild-to-moderate AD and biological diagnosis of AD pathology"
+    },
+    {
+     "measure": "Change from Baseline to End of Treatment in disease stage progression on the Clinical Dementia Rating Scale-Global (CDR-Global), in subjects with a clinical diagnosis of mild-to-moderate AD and biological diagnosis of AD pathology"
+    },
+    {
+     "measure": "Change from baseline to end of treatment in Clinical Dementia Rating Scale - Sum of Boxes (CDR-SB), in subjects with a clinical diagnosis of mild-to-moderate AD and biological diagnosis of AD pathology"
+    },
+    {
+     "measure": "Change from Baseline to End of Treatment on the integrated Alzheimer's Disease Rating Scale (iADRS), in subjects with a clinical diagnosis of mild-to-moderate AD and biological diagnosis of AD pathology"
+    }
+   ]
+  },
+  "eligibilityModule": {
+   "eligibilityCriteria": "Inclusion Criteria:\n\n1. Male or female subject aged 50-90 years old inclusive at the time of Informed Consent\n2. Subject (or legal representative) and caregiver must sign an Informed Consent to participate in the study.\n3. Subject has a caregiver, an identified adult who, in the opinion of the investigator, has sufficient contact to knowledgeably report on the subject's cognition, function, behavior, safety, compliance and adherence. Same caregiver should, whenever possible, assist the subject throughout the duration of the trial\n4. Subject has a biological diagnosis of AD pathology, as assessed by a validated plasma biomarker (presently %p-tau217 plasma biomarker), according to the NIA-AA (National Institute of Aging - Alzheimer's Association) criteria at screening\n5. Subject has a clinical diagnosis of mild to moderate AD (Stage 4 or 5) according to the NIA-AA (National Institute of Aging - Alzheimer's Association) criteria at screening\n6. Meets criteria for mild-to-moderate cognitive impairment with Mini-Mental State Examination (MMSE) score of 14 through 26 at the screening visit.\n7. Modified Hachinski \\< 4 at screening\n8. Clinical Dementia Rating is 0.5 to 2.0 at screening\n9. Visual and auditory acuity adequate for neuropsychological testing\n10. Medical stability for this study as confirmed by review of records, comprehensive physical exam, neurological exam, and laboratory tests\n11. Washout and stability of all concurrent medication according to the exclusion criteria listed below\n12. Able to swallow oral medications\n\nExclusion Criteria:\n\n1. Subject has a current diagnosis of a significant psychiatric illness per the Diagnostic and Statistical Manual of Mental Disorders V (DSM-V) including but not limited to major depressive disorder, anxiety disorders and is in an acute phase/episode; or the subject has a current diagnosis or history of schizophrenia or bipolar disorder; or has current signs of suicidality or history of suicide attempt\n2. Subject with untreated clinical depression at screening; Geriatric Depression Scale (GDS) Short Form \\> 9\n3. Evidence of clinically significant lesion(s) on brain MRI at Screening that could indicate a dementia diagnosis other than Alzheimer's disease\n4. Other significant pathological findings on brain MRI at screening, including but not limited to: more than 4 microhemorrhages (defined as 10 millimeter \\[mm\\] or less at the greatest diameter); a single macrohemorrhage \\>10 mm at greatest diameter; an area of superficial siderosis; evidence of vasogenic edema; evidence of cerebral contusion, encephalomalacia, aneurysms, vascular malformations, or infective lesions; evidence of multiple lacunar infarcts or stroke involving a major vascular territory, severe small vessel, or white matter disease; space occupying lesions; or brain tumors (however, lesions diagnosed as meningiomas or arachnoid cysts and \\<1 centimeter \\[cm\\] at their greatest diameter need not be exclusionary)\n5. Subject has a current diagnosis of a neurological disease other than AD, which has or could result in cognitive impairment, including, but not limited to, any of the following:\n\n   1. History of clinically significant stroke or multiple strokes as ascertained by history and/or brain imaging findings, or history of TIA's within 12 months prior to baseline\n   2. History of serious brain infection\n   3. History of or current space occupying cerebral lesion\n   4. History of clinically significant concussion or repeated head trauma associated with sustained cognitive impairment in the last 5 years\n   5. Huntington's Disease\n   6. Parkinson's Disease\n   7. Dementia predominantly of a non-Alzheimer's type (vascular dementia, frontotemporal dementia, Parkinson's dementia, substance-induced dementia)\n   8. Normal pressure hydrocephalus\n   9. History of seizures (except for childhood febrile) or epilepsy\n6. With glycosylated hemoglobin (HbA1c) \u2265 10 at screening\n7. Subject with a diagnosis of unstable diabetes\n8. Subject with clinically significant thyroid disease at screening TSH \\>5 and abnormal T3/T4\n9. Subject has any evidence of hepatic impairment or renal insufficiency, including any of the following values at the screening visit:\n\n   1. Serum alanine aminotransferase (ALT) and/or aspartate aminotransferase (AST) value that is twice the upper limit of normal\n   2. A serum total bilirubin value that exceeds 2 mg/dL\n   3. Serum creatinine level \\>1.5 mg/dL in men or \\> 1.4 mg/dL in women\n   4. Positive urinalysis consistent with renal impairment\n   5. Estimated glomerular filtration rate (eGFR) \\< 50 mL/min/1.73m2\n   6. Gamma glutamyl-transpeptidase (GGT) twice the upper limit of normal\n10. Subject is positive for hepatitis B surface antigen (HBsAg) or anti-hepatitis C virus (HCV) antibodies at the screening visit\n11. Subject has a history of moderate or severe congestive heart failure, NYHA class III or IV, within 12 months prior to baseline\n12. Subject has experienced a previous cardiovascular event (myocardial infarct, by-pass surgery, or PTCA) within the past 6 months prior to the baseline (visit 2)\n13. Subject has blood pressure reading at screening that is greater than 160/100 mmHg. Subjects with elevated BP will be allowed at the discretion of the principal investigator. Blood pressure will be measured after the subject has been supine for at least 5 minutes followed by repeat measurement after standing for at least 3 minutes. Subjects will be excluded if a significant diastolic (15 mmHg) drop in blood pressure or symptomatic presyncope occurred\n14. Subject has a clinically significant unstable illness, for example hepatic impairment or renal insufficiency, or cardiovascular, pulmonary, gastrointestinal, endocrine, rheumatological, immunological, infection, skin and subcutaneous tissue disorder or metabolic disturbance\n15. Subject has a history of HIV infection\n16. Subject has a history of marijuana abuse or dependence (except topical CBD) within 1 year of the screening visit\n17. Subject has a history of alcohol, drug abuse or dependence (except nicotine dependence) within 2 years of the screening visit\n18. Subject has a history of cancer within 5 years of the screening visit (other than non-melanoma skin cancer, stable non-progressive prostate cancer not requiring treatment or in situ cervical cancer)\n19. Subject has any surgical or medical condition which may significantly alter the absorption of any drug substance including, but not limited to, any of the following:\n\n    1. History of major gastrointestinal tract surgery (e.g. bariatric surgery)\n    2. Currently active inflammatory bowel syndrome\n20. Female subject who is pregnant, nursing or of childbearing potential and not practicing effective contraception\n21. Subject is required to take excluded medications as specified in the Excluded Medications section below.\n22. Subject has a known or suspected intolerance or hypersensitivity to the study drug, closely related compounds, or any of their stated ingredients\n23. Subject resides in hospital or moderate to high dependency continuous care facility\n24. Evidence of clinically relevant pathology that in the investigator's opinion could interfere with the study results or put the subject's safety at risk",
+   "healthyVolunteers": false,
+   "sex": "ALL",
+   "minimumAge": "50 Years",
+   "maximumAge": "90 Years"
+  }
+ },
+ "_stored": {
+  "fetched_at": "2026-10-10",
+  "note": "Stored copy of the ClinicalTrials.gov API v2 record, used when the live fetch fails."
+ }
+}
