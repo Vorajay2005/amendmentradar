@@ -48,7 +48,7 @@ def fetch_study(nct_id):
     import requests
     try:
         d = ctgov.get_json(f"{ctgov.BASE}/{nct_id}", {"fields": ctgov.FIELDS, "format": "json"},
-                           tries=3, use_cache=False)
+                           tries=2, use_cache=False, timeout=8, backoff=0.3)  # interactive: fail fast, then fall back to stored data
     except requests.HTTPError as e:
         if e.response is not None and e.response.status_code == 404:
             raise LookupError(f"{nct_id} was not found on ClinicalTrials.gov.") from e

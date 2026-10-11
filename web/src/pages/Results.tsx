@@ -39,7 +39,7 @@ function Body({ a }: { a: Analysis }) {
         <Link to="/analyze" className="btn-ghost !min-h-[40px] !py-1.5 text-sm"><Search size={15} aria-hidden /> New analysis</Link>
       </div>
 
-      {a.source_note && <p className="mb-3 flex gap-2.5 rounded-xl border border-mid/40 bg-mid/10 px-4 py-2 text-[13px]"><Info size={16} className="mt-0.5 shrink-0 text-mid" aria-hidden />{a.source_note}</p>}
+      {a.source_note && <p className="mb-2 flex gap-2 rounded-lg border border-mid/40 bg-mid/10 px-3 py-1.5 text-xs leading-snug"><Info size={14} className="mt-0.5 shrink-0 text-mid" aria-hidden />{a.source_note}</p>}
 
       <div className="grid gap-4 lg:grid-cols-12">
         <div className="lg:col-span-7"><RiskCard a={a} /></div>
@@ -109,7 +109,7 @@ export default function Results() {
 
   const { a, err, loading } = state;
   return (
-    <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-5">
+    <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6 sm:py-4">
       {loading && <ResultSkeleton slow={slow} />}
       {err && (
         <ErrorState kind={err.code === "unreachable" || err.code === "server_down" ? "offline" : err.code === "not_found" || err.code === "empty" ? "empty" : "error"}
