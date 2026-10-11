@@ -27,7 +27,7 @@ TrialRadar shows:
 git clone https://github.com/Vorajay2005/amendmentradar.git
 cd amendmentradar
 make setup     # creates .venv and installs requirements (needs internet once, for pip)
-make run       # opens the app; uses only committed files in data/, models/ (works offline)
+make run       # serves the app at http://localhost:8501 (open it in your browser); uses only committed files, works offline
 ```
 Tested on Python 3.12 (3.14 also installs). Other targets:
 

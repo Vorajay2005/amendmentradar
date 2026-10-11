@@ -10,8 +10,9 @@ data:          ## re-download from ClinicalTrials.gov API v2 (cached in data/raw
 benchmark:     ## train, evaluate, write BENCHMARK.md + models/ + data/tfidf_index.joblib
 	$(PY) scripts/benchmark.py
 
-run:
-	.venv/bin/streamlit run app/Home.py
+run:           ## open http://localhost:8501 (headless: skips Streamlit's first-run email prompt)
+	@echo "TrialRadar -> http://localhost:8501  (Ctrl+C to stop)"
+	.venv/bin/streamlit run app/Home.py --server.headless true --browser.gatherUsageStats false
 
 test:
 	$(PY) -m pytest -q
